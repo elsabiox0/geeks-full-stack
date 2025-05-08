@@ -6,20 +6,11 @@ numbers = []
 for i in range( 1,length+1) :
    numbers.append(number * i)
 # challengge 2
-def remove_consecutive_duplicates(s):
-    result = ""
-    prev_char = ""  
-
-    for char in s:
-        if char != prev_char:
-            result += char  
-        prev_char = char  
+word = input('entrer votre mot :')
+result =""
+for lettre in word :
+   if not result or lettre != result[-1]:
+       result += lettre
 
 
-    return result
-
-user_input = input("Enter a string: ")
-output = remove_consecutive_duplicates(user_input)
-print("Result:", output)
-
-    
+print(result)
