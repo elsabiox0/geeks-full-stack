@@ -60,15 +60,13 @@ p.last_page()
 print(p.get_visible_items())
 # ['y', 'z']
 
-try:
-    p.go_to_page(10)
-    print(p.current_idx + 1)
-except ValueError as e:
-    print("Caught error:", e)
+# Corrected page number (max is 7)
+p.go_to_page(7)
+print(p.current_idx + 1)
+# Output: 7
 
-
+# This will raise ValueError as expected
 try:
     p.go_to_page(0)
 except ValueError as e:
-    print("Caught error:", e)
-
+    print("Error:", e)
