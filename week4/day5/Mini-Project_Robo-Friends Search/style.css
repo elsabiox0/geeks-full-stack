@@ -1,0 +1,67 @@
+body {
+  margin: 0;
+  font-family: 'Orbitron', sans-serif;
+  background: linear-gradient(to right, #0f2027, #203a43, #2c5364);
+  color: #fff;
+}
+
+.app-container {
+  text-align: center;
+  padding: 40px 20px;
+}
+
+h1 {
+  font-size: 3rem;
+  margin-bottom: 20px;
+  color: #00ffe7;
+  text-shadow: 0 0 10px #00ffe7;
+}
+
+#searchBox {
+  padding: 12px 20px;
+  width: 300px;
+  font-size: 1rem;
+  border: none;
+  border-radius: 25px;
+  box-shadow: 0 0 10px #00ffe7;
+  outline: none;
+  margin-bottom: 40px;
+}
+
+.cards-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 25px;
+}
+
+.robot-card {
+  background-color: #1c1c1c;
+  border-radius: 20px;
+  padding: 20px;
+  width: 200px;
+  text-align: center;
+  box-shadow: 0 4px 20px rgba(0, 255, 231, 0.2);
+  transition: transform 0.3s ease;
+}
+
+.robot-card:hover {
+  transform: scale(1.05);
+}
+
+.robot-card img {
+  width: 100%;
+  border-radius: 50%;
+  border: 3px solid #00ffe7;
+}
+
+.robot-card h3 {
+  margin: 10px 0 5px;
+  font-size: 1.1rem;
+  color: #00ffe7;
+}
+
+.robot-card p {
+  font-size: 0.9rem;
+  color: #ccc;
+}

@@ -1,0 +1,33 @@
+<!-- index.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Unbeatable Tic Tac Toe AI</title>
+  <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="game-container">
+    <h1>Tic Tac Toe 🤖</h1>
+
+    <div class="controls">
+      <label>Choose your symbol:</label>
+      <button onclick="setPlayer('X')">X</button>
+      <button onclick="setPlayer('O')">O</button>
+
+      <label>Choose difficulty:</label>
+      <button onclick="setDifficulty('easy')">Easy</button>
+      <button onclick="setDifficulty('hard')">Hard</button>
+    </div>
+
+    <div id="board" class="board"></div>
+
+    <h2 id="statusText"></h2>
+    <button id="restartBtn" onclick="startGame()">Restart</button>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
