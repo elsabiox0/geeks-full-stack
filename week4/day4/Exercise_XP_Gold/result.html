@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Result Page</title>
+</head>
+<body>
+  <h1>Submitted Data</h1>
+  <section id="result">Loading...</section>
+
+  <script>
+    
+    const params = new URLSearchParams(window.location.search);
+    const name = params.get("name");
+    const lastname = params.get("lastname");
+
+   
+    const resultSection = document.getElementById("result");
+
+    if (name && lastname) {
+      resultSection.innerHTML = `<p>Hello, <strong>${name} ${lastname}</strong>!</p>`;
+    } else {
+      resultSection.textContent = "No data received.";
+    }
+  </script>
+</body>
+</html>
