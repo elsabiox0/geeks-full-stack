@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title> Sunrise & Sunset</title>
+  <style>
+    body {
+      background-color: black;
+      color: #00ff00;
+      font-family: 'Courier New', Courier, monospace;
+      padding: 20px;
+    }
+
+    h1 {
+      color: #00ff00;
+      text-align: center;
+      text-shadow: 0 0 10px #00ff00;
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      max-width: 400px;
+      margin: auto;
+      background: rgba(0, 255, 0, 0.05);
+      padding: 20px;
+      border: 1px solid #00ff00;
+      border-radius: 10px;
+    }
+
+    input, button {
+      background-color: black;
+      color: #00ff00;
+      border: 1px solid #00ff00;
+      padding: 10px;
+      font-size: 16px;
+    }
+
+    input:focus, button:hover {
+      outline: none;
+      box-shadow: 0 0 10px #00ff00;
+    }
+
+    #results {
+      margin-top: 20px;
+      text-align: center;
+    }
+
+    .error {
+      color: red;
+    }
+
+    .city-box {
+      margin-bottom: 20px;
+      padding: 10px;
+      border: 1px dashed #00ff00;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>☀ Matrix Sunrise & Sunset ☀</h1>
+
+  <form id="sunriseForm">
+    <input type="text" id="lat1" placeholder="Latitude City 1" value="48.864716">
+    <input type="text" id="lng1" placeholder="Longitude City 1" value="2.349014">
+    <input type="text" id="lat2" placeholder="Latitude City 2" value="40.730610">
+    <input type="text" id="lng2" placeholder="Longitude City 2" value="-73.935242">
+    <button type="submit">Hack the Sunrise 🌄</button>
+  </form>
+
+  <div id="results"></div>
+
+  <script src="exercise2.js"></script>
+</body>
+</html>
