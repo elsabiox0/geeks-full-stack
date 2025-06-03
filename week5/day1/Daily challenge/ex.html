@@ -2,63 +2,138 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Morse Code Translator</title>
+  <title>Matrix Morse Translator</title>
+  <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet">
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      overflow: hidden;
+      font-family: 'Share Tech Mono', monospace;
+      background: black;
+      color: #00ff00;
+    }
+
+    canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 0;
+    }
+
+    .container {
+      position: relative;
+      z-index: 1;
+      background-color: rgba(0, 0, 0, 0.85);
+      border: 1px solid #00ff00;
+      padding: 30px;
+      border-radius: 10px;
+      width: 90%;
+      max-width: 600px;
+      margin: 100px auto;
+      box-shadow: 0 0 15px #00ff00;
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 20px;
+      font-size: 22px;
+      text-shadow: 0 0 5px #00ff00;
+    }
+
+    input[type="text"] {
+      width: 100%;
+      padding: 12px;
+      font-size: 16px;
+      border: 1px solid #00ff00;
+      background-color: black;
+      color: #00ff00;
+      border-radius: 5px;
+      margin-bottom: 20px;
+    }
+
+    input::placeholder {
+      color: #00ff00aa;
+    }
+
+    button {
+      width: 100%;
+      padding: 10px;
+      background-color: transparent;
+      border: 1px solid #00ff00;
+      color: #00ff00;
+      font-size: 16px;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #00ff0015;
+    }
+
+    pre {
+      margin-top: 25px;
+      background-color: black;
+      padding: 15px;
+      border: 1px solid #00ff00;
+      border-radius: 5px;
+      white-space: pre-wrap;
+      font-size: 15px;
+      color: #00ff00;
+    }
+  </style>
 </head>
 <body>
-  <pre id="output"></pre>
 
+  <canvas id="matrixCanvas"></canvas>
+
+  <div class="container">
+    <h1>Matrix Morse Translator</h1>
+    <input type="text" id="userInput" placeholder="Enter your message...">
+    <button onclick="startTranslation()">Translate</button>
+    <pre id="output">Your Morse translation will appear here...</pre>
+  </div>
+
+  <script src="morse.js"></script>
   <script>
-    const morse = `{
-      "0": "-----", "1": ".----", "2": "..---", "3": "...--", "4": "....-", "5": ".....",
-      "6": "-....", "7": "--...", "8": "---..", "9": "----.", "a": ".-", "b": "-...", "c": "-.-.",
-      "d": "-..", "e": ".", "f": "..-.", "g": "--.", "h": "....", "i": "..", "j": ".---", "k": "-.-",
-      "l": ".-..", "m": "--", "n": "-.", "o": "---", "p": ".--.", "q": "--.-", "r": ".-.", "s": "...",
-      "t": "-", "u": "..-", "v": "...-", "w": ".--", "x": "-..-", "y": "-.--", "z": "--..",
-      ".": ".-.-.-", ",": "--..--", "?": "..--..", "!": "-.-.--", "-": "-....-", "/": "-..-.",
-      "@": ".--.-.", "(": "-.--.", ")": "-.--.-"
-    }`;
+    // MATRIX BACKGROUND ANIMATION
+    const canvas = document.getElementById('matrixCanvas');
+    const ctx = canvas.getContext('2d');
 
-    function toJs() {
-      return new Promise((resolve, reject) => {
-        const morseObj = JSON.parse(morse);
-        if (Object.keys(morseObj).length === 0) {
-          reject("Morse object is empty.");
-        } else {
-          resolve(morseObj);
-        }
-      });
-    }
+    canvas.height = window.innerHeight;
+    canvas.width = window.innerWidth;
 
-    function toMorse(morseJS) {
-      return new Promise((resolve, reject) => {
-        const input = prompt("Enter a word or sentence:").toLowerCase();
-        const translation = [];
+    const letters = 'アカサタナハマヤラワ0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    const fontSize = 20;
+    const columns = canvas.width / fontSize;
+    const drops = Array(Math.floor(columns)).fill(1);
 
-        for (let char of input) {
-          if (morseJS[char]) {
-            translation.push(morseJS[char]);
-          } else {
-            reject(`Character "${char}" not in Morse code dictionary.`);
-            return;
-          }
+    function drawMatrix() {
+      ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+      ctx.fillStyle = '#0f0';
+      ctx.font = fontSize + 'px monospace';
+
+      for (let i = 0; i < drops.length; i++) {
+        const text = letters.charAt(Math.floor(Math.random() * letters.length));
+        ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+
+        if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
+          drops[i] = 0;
         }
 
-        resolve(translation);
-      });
+        drops[i]++;
+      }
     }
 
-    function joinWords(morseTranslation) {
-      const output = document.getElementById("output");
-      output.textContent = morseTranslation.join('\n');
-    }
-
-    // Chain the functions
-    toJs()
-      .then(toMorse)
-      .then(joinWords)
-      .catch(error => {
-        document.getElementById("output").textContent = "Error: " + error;
-      });
+    setInterval(drawMatrix, 50);
   </script>
+
 </body>
 </html>
