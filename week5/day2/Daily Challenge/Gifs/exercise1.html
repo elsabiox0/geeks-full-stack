@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Matrix Giphy Fetcher</title>
+  <style>
+    body {
+      margin: 0;
+      overflow: hidden;
+      background: black;
+      color: #0f0;
+      font-family: monospace;
+    }
+
+    canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      display: block;
+      background: black;
+      z-index: 0;
+    }
+
+    #formWrapper {
+      position: fixed;
+      top: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 10;
+      background: rgba(0, 0, 0, 0.8);
+      padding: 15px 25px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px #0f0;
+      display: flex;
+      gap: 10px;
+    }
+
+    input[type="text"] {
+      font-size: 1rem;
+      padding: 8px;
+      border-radius: 5px;
+      border: 1px solid #0f0;
+      background: black;
+      color: #0f0;
+      outline: none;
+      width: 200px;
+    }
+
+    button {
+      background: #0f0;
+      border: none;
+      padding: 8px 15px;
+      font-weight: bold;
+      border-radius: 5px;
+      cursor: pointer;
+      color: black;
+      transition: background 0.3s;
+    }
+
+    button:hover {
+      background: #0c0;
+    }
+
+    #gifContainer {
+      position: fixed;
+      top: 80px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 90vw;
+      max-width: 900px;
+      max-height: 70vh;
+      overflow-y: auto;
+      z-index: 10;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 15px;
+      padding: 10px;
+      background: rgba(0, 0, 0, 0.6);
+      border-radius: 10px;
+      border: 1px solid #0f0;
+    }
+
+    .gif-box {
+      position: relative;
+      border: 1px solid #0f0;
+      border-radius: 8px;
+      width: 200px;
+      height: 200px;
+      overflow: hidden;
+      background: black;
+    }
+
+    .gif-box img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain; /* or use cover for cropping style */
+      display: block;
+      background: black;
+    }
+
+    .delete-btn {
+      position: absolute;
+      top: 5px;
+      right: 5px;
+      background: #f00;
+      border: none;
+      color: white;
+      font-size: 12px;
+      padding: 2px 6px;
+      cursor: pointer;
+      border-radius: 3px;
+      opacity: 0.8;
+      transition: opacity 0.3s;
+    }
+
+    .delete-btn:hover {
+      opacity: 1;
+    }
+
+    #deleteAllBtn {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      z-index: 10;
+      background: #f00;
+      border: none;
+      padding: 8px 15px;
+      font-weight: bold;
+      border-radius: 5px;
+      cursor: pointer;
+      color: white;
+      box-shadow: 0 0 8px red;
+      transition: background 0.3s;
+    }
+
+    #deleteAllBtn:hover {
+      background: #c00;
+    }
+  </style>
+</head>
+<body>
+
+  <canvas id="matrix"></canvas>
+
+  <div id="formWrapper">
+    <form id="gifForm" style="display:flex; gap:10px;">
+      <input type="text" id="searchInput" placeholder="Enter category (e.g. sun)" required />
+      <button type="submit">Fetch GIF</button>
+    </form>
+  </div>
+
+  <button id="deleteAllBtn">DELETE ALL</button>
+
+  <div id="gifContainer"></div>
+
+  <script src="exercise1.js"></script>
+</body>
+</html>
