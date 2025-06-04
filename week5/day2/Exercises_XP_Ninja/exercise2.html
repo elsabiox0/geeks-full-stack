@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Promise Exercises</title>
+</head>
+<body>
+  <h1>Check your browser console (F12) to see the output</h1>
+
+  <script>
+    function resolveAfter2Seconds() {
+      console.log("starting slow promise");
+      return new Promise(resolve => {
+        setTimeout(function () {
+          resolve("slow");
+          console.log("slow promise is done");
+        }, 2000);
+      });
+    }
+
+    function resolveAfter1Second() {
+      console.log("starting fast promise");
+      return new Promise(resolve => {
+        setTimeout(function () {
+          resolve("fast");
+          console.log("fast promise is done");
+        }, 1000);
+      });
+    }
+
+    // ----------------------------------------
+    // Exercise #4 : Using Promise.all + then()
+    // ----------------------------------------
+    function concurrentPromise() {
+      console.log('==CONCURRENT START with Promise.all==');
+      return Promise.all([resolveAfter2Seconds(), resolveAfter1Second()])
+        .then((messages) => {
+          console.log(messages[0]); 
+          console.log(messages[1]); 
+        });
+    }
+    setTimeout(concurrentPromise, 1000); 
+
+
+    // ----------------------------------------
+    // Exercise #5 : Using async/await + Promise.all
+    // ----------------------------------------
+    async function parallel() {
+      console.log('==PARALLEL with await Promise.all==');
+      await Promise.all([
+        (async () => console.log(await resolveAfter2Seconds()))(),
+        (async () => console.log(await resolveAfter1Second()))()
+      ]);
+    }
+    setTimeout(parallel, 5000); 
+
+
+    // ----------------------------------------
+    // Exercise #6 : Using separate then() calls
+    // ----------------------------------------
+    function parallelPromise() {
+      console.log('==PARALLEL with Promise.then==');
+      resolveAfter2Seconds().then((message) => console.log(message));
+      resolveAfter1Second().then((message) => console.log(message));
+    }
+    setTimeout(parallelPromise, 13000); 
+  </script>
+</body>
+</html>

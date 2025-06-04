@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Giphy Fetch</title>
+</head>
+<body>
+  <h1>Random Giphy</h1>
+  <div id="gif-container"></div>
+  <script>
+    const API_KEY = 'YOUR_API_KEY'; // Replace with your real key from the exercise XP
+    const API_URL = `https://api.giphy.com/v1/gifs/random?api_key=${API_KEY}&tag=&rating=g`;
+
+    async function fetchRandomGif() {
+      try {
+        const response = await fetch(API_URL);
+
+        if (!response.ok) {
+          throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+
+        const data = await response.json();
+        const gifUrl = data.data.images.original.url;
+
+        const img = document.createElement('img');
+        img.src = gifUrl;
+        document.getElementById('gif-container').appendChild(img);
+      } catch (error) {
+        console.error("Failed to fetch GIF:", error);
+      }
+    }
+
+    fetchRandomGif();
+  </script>
+</body>
+</html>
