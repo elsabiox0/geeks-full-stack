@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pokédex</title>
+    <style>
+        body { 
+            font-family: 'Arial', sans-serif; 
+            display: flex; 
+            flex-direction: column; 
+            align-items: center; 
+            margin-top: 20px; 
+            background-color: #f0f0f0; 
+        }
+        .pokemon-logo-container {
+            margin-bottom: 20px;
+        }
+        .pokemon-logo { 
+            width: 250px; 
+            height: auto;
+        }
+
+        .pokedex-device {
+            width: 360px; 
+            min-height: 600px;
+            background-color: #dc0a2d; /* Pokedex red */
+            border-radius: 20px 20px 40px 20px; 
+            padding: 20px;
+            box-shadow: 5px 5px 15px rgba(0,0,0,0.4), inset 0 0 10px rgba(0,0,0,0.2);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+            border: 3px solid #a10821; /* Darker red border */
+        }
+        
+        .pokedex-device::before { /* Top hinge detail */
+            content: '';
+            position: absolute;
+            top: 255px; 
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 25px;
+            background-color: #a10821; 
+            border-radius: 5px;
+            z-index: 10;
+            box-shadow: inset 0 0 5px rgba(0,0,0,0.3);
+        }
+
+        .upper-screen-area {
+            background-color: #222; 
+            padding: 10px; 
+            border-radius: 10px 10px 5px 5px; 
+            width: 90%;
+            height: 220px; 
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 35px; 
+            box-shadow: inset 0 0 10px rgba(0,0,0,0.5);
+        }
+        .screen {
+            background-color: #9bcc50; /* Pokedex screen green */
+            width: 100%;
+            height: 100%;
+            border-radius: 5px;
+            display: flex; 
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            position: relative; 
+            border: 3px solid #494949; 
+        }
+
+        .pokemon-image { 
+            max-width: 150px; 
+            max-height: 150px; 
+            height: auto; 
+            margin-bottom: 10px; 
+            image-rendering: pixelated; 
+            image-rendering: -moz-crisp-edges;
+            image-rendering: crisp-edges;
+            filter: drop-shadow(2px 2px 2px rgba(0,0,0,0.3));
+        }
+        
+        #loading-message, #error-message {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: rgba(0, 0, 0, 0.75);
+            color: white;
+            padding: 15px;
+            border-radius: 8px;
+            display: none; 
+            text-align: center;
+            z-index: 5; 
+            width: 80%; /* Ensure message fits well */
+        }
+        #loading-message img {
+            width: 40px; 
+            height: 40px;
+            margin-top: 8px;
+        }
+
+        .lower-section {
+            width: 100%;
+            display: flex;
+            flex-direction: column; 
+            align-items: center;
+            background-color: #c00925; 
+            padding: 15px;
+            box-sizing: border-box;
+            border-radius: 0 0 35px 15px; /* Adjusted to match Pokedex shape */
+            box-shadow: inset 0 3px 8px rgba(0,0,0,0.2);
+        }
+
+        .pokemon-data-display { 
+            width: 90%;
+            background-color: #dadada; /* Lighter grey for info screen */
+            border: 2px solid #494949;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 20px;
+            min-height: 140px; 
+            box-shadow: inset 0 0 8px rgba(0,0,0,0.15);
+            color: #333;
+        }
+        .pokemon-data-display h2 {
+            margin-top: 0;
+            margin-bottom: 10px;
+            font-size: 1.5em;
+            color: #1b1b1b;
+            text-transform: capitalize;
+        }
+        .pokemon-data-display p { 
+            margin: 6px 0; 
+            font-size: 1em;
+        }
+        .pokemon-info.types { margin-top: 10px; }
+        .pokemon-info.types strong { font-size: 0.95em;}
+        .pokemon-info.types span {
+            display: inline-block;
+            padding: 5px 10px;
+            margin: 3px 2px;
+            border-radius: 15px; 
+            color: white;
+            font-size: 0.85em;
+            text-transform: uppercase;
+            font-weight: bold;
+            border: 1px solid rgba(0,0,0,0.1);
+            box-shadow: 1px 1px 3px rgba(0,0,0,0.2);
+            text-shadow: 1px 1px 1px rgba(0,0,0,0.3);
+        }
+
+        /* Type Colors from Bulbapedia */
+        .type-normal { background-color: #A8A878; }
+        .type-fighting { background-color: #C03028; }
+        .type-flying { background-color: #A890F0; }
+        .type-poison { background-color: #A040A0; }
+        .type-ground { background-color: #E0C068; color: #212121;}
+        .type-rock { background-color: #B8A038; }
+        .type-bug { background-color: #A8B820; }
+        .type-ghost { background-color: #705898; }
+        .type-steel { background-color: #B8B8D0; color: #212121;}
+        .type-fire { background-color: #F08030; }
+        .type-water { background-color: #6890F0; }
+        .type-grass { background-color: #78C850; color: #212121;}
+        .type-electric { background-color: #F8D030; color: #212121;}
+        .type-psychic { background-color: #F85888; }
+        .type-ice { background-color: #98D8D8; color: #212121;}
+        .type-dragon { background-color: #7038F8; }
+        .type-dark { background-color: #705848; }
+        .type-fairy { background-color: #EE99AC; color: #212121;}
+        .type-unknown, .type-shadow { background-color: #68A090; }
+
+
+        .controls {
+            display: flex;
+            justify-content: space-around;
+            width: 100%;
+        }
+        .controls button {
+            padding: 12px 18px;
+            margin: 0 5px; 
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1.5em; /* Larger emojis/text */
+            font-weight: bold;
+            transition: background-color 0.2s ease, transform 0.1s ease;
+            box-shadow: 0 3px 5px rgba(0,0,0,0.25), inset 0 -2px 1px rgba(0,0,0,0.1);
+            color: white; /* Default color for emojis/text on buttons */
+        }
+        .controls button:active:not(:disabled) {
+            transform: translateY(1px);
+            box-shadow: 0 1px 3px rgba(0,0,0,0.2), inset 0 -1px 0px rgba(0,0,0,0.1);
+        }
+        .controls button:disabled { 
+            background-color: #777 !important; 
+            color: #bbb !important;
+            cursor: not-allowed; 
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.2);
+        }
+        
+        #prev-pokemon { background-color: #f85888; } /* Pinkish */
+        #prev-pokemon:hover:not(:disabled) { background-color: #e74878; }
+
+        #random-pokemon { background-color: #58a8f8; } /* Blueish */
+        #random-pokemon:hover:not(:disabled) { background-color: #4090e0; }
+        
+        #next-pokemon { background-color: #f85888; } /* Pinkish */
+        #next-pokemon:hover:not(:disabled) { background-color: #e74878; }
+        
+    </style>
+</head>
+<body>
+    <div class="pokemon-logo-container">
+        <img src="logo.png" alt="Pokemon Logo - Gotta Catch 'Em All!" class="pokemon-logo">
+    </div>
+
+    <div class="pokedex-device">
+        <div class="upper-screen-area">
+            <div class="screen" id="pokemon-screen">
+                <img src="" alt="Pokemon Image" class="pokemon-image" id="pokemon-image" style="display:none;">
+                <div id="loading-message">
+                    Loading...
+                    <img src="https://i.gifer.com/ZZ5H.gif" alt="loading animation">
+                </div>
+                <div id="error-message"></div>
+            </div>
+        </div>
+
+        <div class="lower-section">
+            <div class="pokemon-data-display" id="pokemon-data-display">
+                <h2 id="pokemon-name">Pokédex</h2>
+                <p id="pokemon-id"></p>
+                <p id="pokemon-height"></p>
+                <p id="pokemon-weight"></p>
+                <div class="pokemon-info types" id="pokemon-types"></div>
+            </div>
+
+            <div class="controls">
+                <button id="prev-pokemon" title="Previous Pokémon">⬅️</button>
+                <button id="random-pokemon" title="Random Pokémon">✨</button>
+                <button id="next-pokemon" title="Next Pokémon">➡️</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
