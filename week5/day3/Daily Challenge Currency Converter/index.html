@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>CIH Currency Converter</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+    <audio id="bg-music" loop>
+    <source src="SpotiDownloader.com - Not Like Us - Kendrick Lamar.mp3" type="audio/mpeg">
+    Your browser does not support the audio element.
+  </audio>
+  <button id="toggle-music" style="position: absolute; top: 15px; right: 15px; z-index: 999; padding: 10px; border: none; border-radius: 6px; background: #ff5500; color: white; cursor: pointer;">🎵 Play Music</button>
+
+
+  <div class="converter">
+    <h1>💱 CIH Currency Converter</h1>
+    <div class="row">
+      <div>
+        <label>From:</label>
+        <select id="from-currency"></select>
+      </div>
+      <div>
+        <label>To:</label>
+        <select id="to-currency"></select>
+      </div>
+    </div>
+    <button id="switch-btn"> Switch</button>
+
+    <input type="number" id="amount" placeholder="Enter amount" />
+    <button id="convert-btn">Convert</button>
+
+    <div id="result">Result will appear here</div>
+  </div>
+  <script>
+    const music = document.getElementById("bg-music");
+    const toggleBtn = document.getElementById("toggle-music");
+    let isPlaying = false;
+
+    toggleBtn.addEventListener("click", () => {
+      if (!isPlaying) {
+        music.volume = 0.05;
+        music.play();
+        toggleBtn.textContent = "⏸ Pause Music";
+        isPlaying = true;
+      } else {
+        music.pause();
+        toggleBtn.textContent = "🎵 Play Music";
+        isPlaying = false;
+      }
+    });
+  </script>
+
+  <script src="script.js"></script>
+</body>
+</html>
