@@ -1,58 +1,49 @@
-const express = require('express');
-const emojis = require('./data');
-const path = require('path');
+let correctAnswer = '';
 
-const app = express();
-const PORT = 3000;
+async function loadQuestion() {
+  const res = await fetch('/api/question');
+  const data = await res.json();
 
-let leaderboard = [];
-let currentScore = 0;
+  correctAnswer = data.correctAnswer;
+  document.getElementById('emoji').textContent = data.emoji;
 
-app.use(express.static('public'));
-app.use(express.json());
+  const form = document.getElementById('optionsForm');
+  form.innerHTML = '';
 
-// Serve a random emoji question
-app.get('/api/question', (req, res) => {
-    const correctIndex = Math.floor(Math.random() * emojis.length);
-    const correctEmoji = emojis[correctIndex];
+  data.options.forEach(option => {
+    const label = document.createElement('label');
+    label.innerHTML = `
+      <input type="radio" name="answer" value="${option}" required> ${option}
+    `;
+    form.appendChild(label);
+  });
 
-    let options = new Set([correctEmoji.name]);
-    while (options.size < 4) {
-        const random = emojis[Math.floor(Math.random() * emojis.length)].name;
-        options.add(random);
-    }
+  const submitBtn = document.createElement('button');
+  submitBtn.type = 'submit';
+  submitBtn.textContent = 'Submit';
+  form.appendChild(submitBtn);
+}
 
-    options = Array.from(options).sort(() => Math.random() - 0.5);
+document.getElementById('optionsForm').addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const formData = new FormData(e.target);
+  const answer = formData.get('answer');
 
-    res.json({
-        emoji: correctEmoji.emoji,
-        options,
-        answer: correctEmoji.name // Only needed server-side; don't expose in frontend
-    });
+  const res = await fetch('/api/guess', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ answer, correctAnswer }),
+  });
+
+  const result = await res.json();
+
+  document.getElementById('feedback').textContent = result.correct ? '✅ Correct!' : '❌ Wrong!';
+  document.getElementById('score').textContent = result.score;
+
+  setTimeout(() => {
+    document.getElementById('feedback').textContent = '';
+    loadQuestion();
+  }, 1000);
 });
 
-// Handle guess
-app.post('/api/guess', (req, res) => {
-    const { selected, answer } = req.body;
-
-    const correct = selected === answer;
-    if (correct) currentScore++;
-    else currentScore = 0;
-
-    res.json({ correct, score: currentScore });
-});
-
-// Leaderboard (optional enhancement)
-app.post('/api/leaderboard', (req, res) => {
-    const { name, score } = req.body;
-    leaderboard.push({ name, score });
-    leaderboard.sort((a, b) => b.score - a.score);
-    leaderboard = leaderboard.slice(0, 5);
-    res.json(leaderboard);
-});
-
-app.get('/api/leaderboard', (req, res) => {
-    res.json(leaderboard);
-});
-
-app.listen(PORT, () => console.log(`Server running on http://localhost:${PORT}`));
+loadQuestion();
