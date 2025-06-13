@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Trivia Quiz</title>
+  <link rel="stylesheet" href="/style.css" />
+</head>
+<body>
+  <main class="quiz-container">
+    <div class="card fade-in">
+      <h2>Question <%= questionNumber %> of <%= totalQuestions %></h2>
+      <p class="question"><%= question %></p>
+
+      <% if (feedback) { %>
+        <div class="feedback"><%= feedback %></div>
+      <% } %>
+
+      <form action="/quiz" method="POST">
+        <input type="text" name="answer" placeholder="Type your answer..." required />
+        <button type="submit">Submit Answer</button>
+      </form>
+    </div>
+  </main>
+</body>
+</html>

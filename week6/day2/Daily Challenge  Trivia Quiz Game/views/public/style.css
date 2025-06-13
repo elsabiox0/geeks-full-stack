@@ -1,0 +1,92 @@
+/* Reset & base styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background: linear-gradient(to right, #1e3c72, #2a5298);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+/* Container */
+.quiz-container {
+  width: 100%;
+  max-width: 500px;
+  padding: 20px;
+}
+
+/* Card */
+.card {
+  background: #ffffff10;
+  border-radius: 16px;
+  padding: 30px;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+  text-align: center;
+  color: #fff;
+}
+
+/* Question Text */
+.question {
+  font-size: 1.25rem;
+  margin: 20px 0;
+}
+
+/* Input */
+input[type="text"] {
+  width: 100%;
+  padding: 12px;
+  border: none;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  font-size: 1rem;
+  outline: none;
+}
+
+/* Button */
+button, .btn {
+  background-color: #00c9a7;
+  color: #fff;
+  padding: 12px 24px;
+  border: none;
+  font-size: 1rem;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+button:hover, .btn:hover {
+  background-color: #00b093;
+}
+
+/* Feedback */
+.feedback {
+  margin-bottom: 15px;
+  font-weight: bold;
+  background-color: rgba(255,255,255,0.1);
+  padding: 10px;
+  border-radius: 8px;
+}
+
+/* Score */
+.score {
+  font-size: 1.5rem;
+  margin: 20px 0;
+}
+
+/* Animation */
+.fade-in {
+  animation: fadeIn 0.6s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
