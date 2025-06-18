@@ -1,0 +1,26 @@
+<form id="loginForm">
+  <h2>Login :</h2>
+  Username <input name="username" required><br>
+  Password <input name="password" type="password" required><br>
+  <button type="submit" disabled>Login</button>
+  <p id="msg"></p>
+</form>
+
+<script>
+const form = document.getElementById("loginForm");
+const btn = form.querySelector("button");
+form.addEventListener("input", () => {
+  btn.disabled = ![...form.elements].every(el => el.value);
+});
+
+form.addEventListener("submit", async (e) => {
+  e.preventDefault();
+  const data = Object.fromEntries(new FormData(form).entries());
+  const res = await fetch("/api/login", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(data),
+  });
+  document.getElementById("msg").textContent = await res.text();
+});
+</script>
