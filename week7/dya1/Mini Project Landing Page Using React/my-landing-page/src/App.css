@@ -1,0 +1,42 @@
+/* src/App.css */
+body {
+  font-family: 'Arial', sans-serif; /* Ghetier le font global */
+  line-height: 1.6;
+  color: #333;
+  background-color: #f8f9fa; /* Background khfif l page kamla */
+}
+
+/* Style for hero section (if you want more specific than Bootstrap classes) */
+.jumbotron {
+  background-size: cover;
+  background-position: center;
+}
+
+/* Custom icon wrapper for better spacing if needed */
+.icon-wrapper {
+  color: #007bff; /* Primary color */
+}
+
+/* Add some animation or hover effect for cards if desired */
+.card {
+  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+}
+
+.card:hover {
+  transform: translateY(-5px); /* Lift card slightly on hover */
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15) !important; /* Stronger shadow */
+}
+
+/* Ensure links in footer remain white */
+footer a {
+  color: white;
+  text-decoration: none;
+}
+
+footer a:hover {
+  color: #cccccc;
+}
+
+/* You might need to import brand icons for social media if you want them */
+/* If you use Font Awesome <i class="fab fa-facebook-f"></i> directly in HTML,
+   you need to link the CDN in public/index.html or import in React */

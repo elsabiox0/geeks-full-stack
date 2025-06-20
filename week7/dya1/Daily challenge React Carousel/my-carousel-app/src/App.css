@@ -1,0 +1,86 @@
+/* src/App.css */
+
+/* Basic styling for the entire app container */
+.App {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  padding: 20px;
+  background-color: #f0f2f5; /* A slightly darker light background */
+}
+
+/* Container for the carousel to control its size and add shadow/rounding */
+.carousel-container {
+  max-width: 900px; /* Limit the maximum width of the carousel for desktop */
+  width: 100%;      /* Make it take full width on smaller screens */
+  margin: 0 auto;   /* Center the carousel horizontally */
+  box-sizing: border-box; /* Include padding and border in the element's total width and height */
+}
+
+/* Custom styling for the image legend (text overlay) */
+.carousel .legend {
+  font-size: 1.3rem; /* Make legend text larger */
+  background: rgba(0, 0, 0, 0.7); /* Darker background for better contrast */
+  color: white; /* White text */
+  padding: 15px; /* More padding */
+  position: absolute; /* Position relative to the slide */
+  bottom: 0px; /* At the bottom of the image */
+  left: 0;
+  right: 0;
+  margin: 0; /* Remove default margin */
+  text-align: center;
+  border-radius: 0 0 0.25rem 0.25rem; /* Match card-like rounding */
+}
+
+/* Ensure images fill their container but maintain aspect ratio and don't overflow */
+.carousel .slide img {
+  width: 100%;
+  height: 600px; /* Set a fixed height for all images */
+  object-fit: cover; /* Crop images to cover the area without distortion */
+  display: block; /* Remove any extra space below images */
+}
+
+/* Adjustments for smaller screens (responsiveness) */
+@media (max-width: 768px) {
+  .carousel .slide img {
+    height: 400px; /* Smaller height on tablets */
+  }
+  .carousel .legend {
+    font-size: 1rem; /* Smaller legend font on tablets */
+    padding: 10px;
+  }
+}
+
+@media (max-width: 576px) {
+  .carousel .slide img {
+    height: 300px; /* Even smaller height on mobile phones */
+  }
+  .carousel .legend {
+    font-size: 0.9rem; /* Even smaller legend font on mobile */
+    padding: 8px;
+  }
+  .App h1 {
+      font-size: 2rem; /* Make heading smaller on mobile */
+  }
+}
+
+/* Style for the arrows (optional, you can customize more) */
+.carousel .control-arrow, .carousel.carousel-slider .control-arrow:hover {
+    background: rgba(0, 0, 0, 0.5) !important;
+    opacity: 1 !important;
+}
+.carousel .control-next.control-arrow {
+    right: 0;
+}
+.carousel .control-prev.control-arrow {
+    left: 0;
+}
+
+/* Style for indicators (dots) */
+.carousel .control-dots .dot {
+    background: #007bff !important; /* Blue dots */
+    box-shadow: none !important;
+    opacity: 0.5;
+}
+.carousel .control-dots .dot.selected {
+    opacity: 1;
+    transform: scale(1.2); /* Make selected dot slightly larger */
+}
