@@ -1,0 +1,16 @@
+{
+  "SocialMedias": ["Facebook", "Twitter", "LinkedIn"],
+  "Skills": ["JavaScript", "React", "Node.js"],
+  "Experiences": [
+    {
+      "company": "Company A",
+      "years": "2019-2021",
+      "tasks": ["Developed UI", "Wrote unit tests"]
+    },
+    {
+      "company": "Company B",
+      "years": "2021-2023",
+      "tasks": ["Led a team", "Reviewed PRs"]
+    }
+  ]
+}
