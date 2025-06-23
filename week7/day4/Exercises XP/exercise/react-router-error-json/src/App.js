@@ -12,8 +12,9 @@ import Example2 from "./Example2";
 import Example3 from "./Example3";
 
 function App() {
-  const sendPost = async () => {
-    const res = await fetch("https://webhook.site/your-custom-url", {
+ const sendPost = async () => {
+  try {
+    const res = await fetch("https://webhook.site/490c0a7b-d888-424e-a5fc-6d9034354996", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -24,9 +25,14 @@ function App() {
         age: 27,
       }),
     });
+
     const data = await res.text();
     console.log("Webhook response:", data);
-  };
+  } catch (err) {
+    console.error("Failed to send POST request:", err);
+  }
+};
+
 
   return (
     <BrowserRouter>
