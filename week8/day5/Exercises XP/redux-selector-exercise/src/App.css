@@ -1,0 +1,111 @@
+/* src/App.css */
+.App {
+  text-align: center;
+}
+
+.App-header {
+  background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+  padding: 40px 20px;
+  color: var(--header-color);
+  box-shadow: 0 4px 12px var(--shadow-color);
+  border-bottom-left-radius: 20px;
+  border-bottom-right-radius: 20px;
+}
+
+h1 {
+  margin: 0;
+  font-size: 2.5rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+
+/* BookList Container */
+.booklist-container {
+  max-width: 800px;
+  margin: 40px auto;
+  padding: 30px;
+  background-color: var(--card-background);
+  border-radius: 12px;
+  box-shadow: 0 4px 20px var(--shadow-color);
+  text-align: left;
+}
+
+h2 {
+  font-size: 2rem;
+  color: var(--primary-color);
+  margin-top: 0;
+  margin-bottom: 20px;
+  border-bottom: 2px solid var(--secondary-color);
+  padding-bottom: 10px;
+}
+
+/* Genre Filter Buttons */
+.genre-filters {
+  display: flex;
+  gap: 15px;
+  margin-bottom: 30px;
+  flex-wrap: wrap;
+}
+
+.genre-button {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 20px;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--primary-color);
+  background-color: #fff;
+  border: 2px solid var(--primary-color);
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.genre-button:hover,
+.genre-button.active {
+  background: var(--primary-color);
+  color: #fff;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(106, 17, 203, 0.3);
+}
+
+/* Book List Styling */
+.book-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.book-item {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  padding: 15px;
+  border-bottom: 1px solid #eee;
+  transition: background-color 0.2s ease;
+}
+
+.book-item:last-child {
+  border-bottom: none;
+}
+
+.book-item:hover {
+  background-color: #f9f9f9;
+}
+
+.book-icon {
+  font-size: 1.5rem;
+  color: var(--secondary-color);
+}
+
+.book-details strong {
+  display: block;
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+.book-details span {
+  font-size: 0.9rem;
+  color: #777;
+}
