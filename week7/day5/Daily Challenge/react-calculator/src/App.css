@@ -1,0 +1,79 @@
+/* Reset */
+body, html {
+  margin: 0;
+  padding: 0;
+  font-family: 'Segoe UI', sans-serif;
+  background: linear-gradient(135deg, #1c1c1c, #2f2f2f);
+  height: 100vh;
+}
+
+/* App container */
+.app {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+
+/* Calculator card */
+.calculator {
+  background: rgba(255, 255, 255, 0.05);
+  padding: 32px;
+  border-radius: 16px;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+  width: 100%;
+  max-width: 400px;
+  text-align: center;
+  color: #ffffff;
+}
+
+/* Title */
+.calculator h1 {
+  margin-bottom: 24px;
+  font-size: 2rem;
+}
+
+/* Inputs & select */
+.inputs input,
+.inputs select {
+  width: 100%;
+  padding: 14px;
+  margin: 10px 0;
+  font-size: 16px;
+  border-radius: 8px;
+  border: none;
+  background: rgba(255, 255, 255, 0.15);
+  color: #fff;
+  outline: none;
+  transition: background 0.2s;
+}
+
+.inputs input::placeholder {
+  color: #cccccc;
+}
+
+/* Button */
+.inputs button {
+  width: 100%;
+  padding: 14px;
+  margin-top: 16px;
+  font-size: 16px;
+  background-color: #29ABE2;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.inputs button:hover {
+  background-color: #1e8ec1;
+}
+
+/* Result */
+.result {
+  margin-top: 20px;
+  font-size: 1.4rem;
+  color: #e0e0e0;
+}
